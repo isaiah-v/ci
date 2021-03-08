@@ -36,5 +36,10 @@ sudo docker exec nginx /bin/sh -c "apt-get update"
 sudo docker exec nginx /bin/sh -c "apt-get -y install certbot"
 sudo docker exec nginx /bin/sh -c "apt-get -y install python3-certbot-nginx"
 sudo docker exec nginx /bin/sh -c "certbot certonly --nginx --non-interactive --agree-tos -m isaiah.v@comcast.net -d ivcode.org"
-sudo docker cp ./Nginx/nginx.conf nginx:/etc/nginx/nginx.conf
+
+cp ./Nginx/nginx.conf ./nginx.conf
+sed -i "s/<IP>/$PRIVATE_IP/" ./nginx.conf
+sudo docker cp ./nginx.conf nginx:/etc/nginx/nginx.conf
+rm ./nginx.conf
+
 sudo docker restart nginx
