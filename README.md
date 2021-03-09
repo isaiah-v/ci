@@ -14,7 +14,7 @@ cd ci
 chmod +x ./install.sh
 ./install.sh
 ```
-# Network Setup
+## Network Setup
 Security is managed by controlling what ports are exposed to the internet. The install scripts assume port 80 and 443 are public. No other ports from this machine should be exposed to the internet.
 
 *Configuration:*
