@@ -7,8 +7,7 @@ My Personal Continuous Interaction Setup. This project documents the setup proce
 | Ubuntu Server - 20.04 | Nginx         | Jenkins      | Docker    |
 
 ## Install
-After installing Ubuntu Server v20.04, run the following script.
-
+After installing Ubuntu Server v20.04, run the following:
 ```
 git clone https://github.com/isaiah-v/ci.git
 cd ci
