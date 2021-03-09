@@ -18,5 +18,5 @@ chmod +x ./install.sh
 Security is managed by controlling what ports are exposed to the internet. The install scripts assume port 80 and 443 are public. No other ports from this machine should be exposed to the internet.
 
 *Configuration:*
- * _DHCP Reservation_: Reserve an IP address for your server within your network so that it wont change.
+ * _DHCP Reservation_: Reserve an IP address for your server. This will prevent your private IP from changeing.
  * _Port Forwarding_: Forward port 80 and 443 to your server. This will expose your server to the internet.
