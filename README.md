@@ -20,3 +20,7 @@ Security is managed by controlling what ports are exposed to the internet. The i
 *Configuration:*
  * _DHCP Reservation_: Reserve an IP address for your server. This will prevent your private IP from changeing.
  * _Port Forwarding_: Forward port 80 and 443 to your server. This will expose your server to the internet.
+
+## Services
+ * _Jenkins_: https://$YOUR_HOST/Jenkins
+ * _Docker Registry UI_: https://$YOUR_HOST/Docker
