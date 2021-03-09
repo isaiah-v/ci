@@ -15,7 +15,7 @@ chmod +x ./install.sh
 ./install.sh
 ```
 ## Network Setup
-Security is managed by controlling what ports are exposed to the internet. The install scripts assume port 80 and 443 are public. No other ports from this machine should be exposed to the internet.
+Security is managed by using reverse proxies and controlling what ports are exposed to the internet. The install scripts assume port 80 and 443 are public. No other ports from this machine should be exposed to the internet.
 
 *Configuration:*
  * _DHCP Reservation_: Reserve an IP address for your server. This will prevent your private IP from changeing.
