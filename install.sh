@@ -1,5 +1,11 @@
 #!/bin/bash
 
+read -p "Email: " EMAIL
+echo EMAIL = $EMAIL
+
+read -p "Public Host or IP:" HOST
+echo HOST = $HOST
+
 PRIVATE_IP=$(hostname -I | awk '{print $1}')
 echo PRIVATE_IP = $PRIVATE_IP
 
@@ -33,7 +39,7 @@ sudo mv ./daemon.json /etc/docker/daemon.json
 sudo chown root:root /etc/docker/daemon.json
 
 # Setup Docker Registry UI
-sudo docker run --name docker-registry-ui -d -p 8081:80 --restart=always -e URL=https://ivcode.org -e REGISTRY_TITLE="ivcode.org" joxit/docker-registry-ui:static
+sudo docker run --name docker-registry-ui -d -p 5001:80 --restart=always -e URL="https://$HOST" -e REGISTRY_TITLE="$HOST" joxit/docker-registry-ui:static
 
 # Restart Docker
 sudo systemctl restart docker
@@ -48,11 +54,12 @@ sudo docker run -d --restart=always -p 80:80 -p 443:443 --name nginx nginx
 sudo docker exec nginx /bin/sh -c "apt-get update"
 sudo docker exec nginx /bin/sh -c "apt-get -y install certbot"
 sudo docker exec nginx /bin/sh -c "apt-get -y install python3-certbot-nginx"
-sudo docker exec nginx /bin/sh -c "certbot certonly --nginx --non-interactive --agree-tos -m isaiah.v@comcast.net -d ivcode.org"
+sudo docker exec nginx /bin/sh -c "certbot certonly --nginx --non-interactive --agree-tos -m $EMAIL -d $HOST"
 
 # Nginx Congif
 cp ./Nginx/nginx.conf ./nginx.conf
 sed -i "s/<IP>/$PRIVATE_IP/" ./nginx.conf
+sed -i "s/<HOST>/$HOST" ./nginx.conf
 sudo docker cp ./nginx.conf nginx:/etc/nginx/nginx.conf
 rm ./nginx.conf
 
