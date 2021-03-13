@@ -22,5 +22,6 @@ Security is managed by using reverse proxies and controlling what ports are expo
  * _Port Forwarding_: Forward port 80 and 443 to your server. This will expose your server to the internet.
 
 ## Services
- * _Jenkins_: `https://$YOUR_HOST/Jenkins`
- * _Docker Registry UI_: `https://$YOUR_HOST/Docker`
+ * _Jenkins_: `https://$YOUR_HOST/jenkins`
+ * _Rundeck_: `https://$YOUR_HOST/rundeck`
+ * _Docker Registry UI_: `https://$YOUR_HOST/docker`
