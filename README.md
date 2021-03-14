@@ -1,5 +1,5 @@
 # ci
-My Personal Continuous Interaction Setup. This project documents the setup process for my personal ci envoirnment. Currently everythiing is installed on a single machine. This should be sufficient for personal use. It could also be a starting point for larger setups.
+My Personal Continuous Interaction Setup. This project documents the setup process for my personal ci environment. Currently everything is installed on a single machine. This should be sufficient for personal use. It could also be a starting point for larger setups.
 
 ## Stack
 | Operating System      | Reverse Proxy | SSL           | Container | Build Server | Deployment |
@@ -20,7 +20,7 @@ Setup your network to forward request to your server. Most, if not all, modern r
 Private IP: `hostname -I | awk '{print $1}'`
 
 *Configuration:*
- * _DHCP Reservation_: Reserve an IP address for your server. This will prevent your private IP from changeing.
+ * _DHCP Reservation_: Reserve an IP address for your server. This will prevent your private IP from changing.
  * _Port Forwarding_: Forward port 80 and 443 to your server. This will expose your server to the internet.
 
 _Warning:_ For this server, do not publicly expose any port other than 80 and 443.
