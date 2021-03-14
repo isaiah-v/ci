@@ -68,3 +68,8 @@ rm ./nginx.conf
 
 # Restart Nginx
 sudo docker restart nginx
+
+# --== User Info ==-- #
+echo Please Reset Your Passwords
+echo Jenkins Initial Admin Password = $(./Jenkins/initialAdminPassword.sh)
+echo Rundeck Default Password = admin/admin
