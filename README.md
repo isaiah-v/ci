@@ -6,13 +6,15 @@ My Personal Continuous Interaction Setup. This project documents the setup proce
 |-----------------------|---------------|---------------|-----------|--------------|------------|
 | Ubuntu Server - 20.04 | Nginx         | Let's Encrypt | Docker    | Jenkins      | Rundeck    |
 
-## Prerequisite 1: Domain Name
+## Prerequisites
+
+### 1. Domain Name
 A public domain name needs to be setup with a provider, and it needs to be setup point to your [Public IP Address](https://www.whatismyip.com/what-is-my-public-ip-address/). Your provider will have documentation on mapping your domain name.
 
-## Prerequisite 2: Install Ubuntu Server
+### 2. Ubuntu Server
 The install script in this project has only been tested with [Ubuntu Server v20.04 (LTS)](https://ubuntu.com/server).
 
-## Prerequisite 3: Network Setup
+### 3. Network Setup
 Setup your network so that when request come in they are forwaded to your server.
 
 *Configuration:*
