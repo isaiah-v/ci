@@ -1,9 +1,7 @@
 #!/bin/bash
 
-read -p "Public Domain Name:" DOMAIN
-
+read -p "Public Domain Name: " DOMAIN
 read -p "Email: " EMAIL
-
 
 PRIVATE_IP=$(hostname -I | awk '{print $1}')
 
@@ -21,7 +19,7 @@ echo PRIVATE_IP = $PRIVATE_IP
 echo DOCKER_ARCH = $DOCKER_ARCH
 
 # --== Docker ==-- #
-if [ -x "$(command -v docker)" ];
+if ! [ -x "$(command -v docker)" ];
 then
    # install docker if it's not already installed
    sudo apt-get update || exit 1
