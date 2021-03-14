@@ -1,10 +1,10 @@
 #!/bin/bash
 
+read -p "Public Domain Name:" DOMAIN
+echo DOMAIN = $DOMAIN
+
 read -p "Email: " EMAIL
 echo EMAIL = $EMAIL
-
-read -p "Public Host or IP:" HOST
-echo HOST = $HOST
 
 PRIVATE_IP=$(hostname -I | awk '{print $1}')
 echo PRIVATE_IP = $PRIVATE_IP
@@ -39,7 +39,7 @@ sudo mv ./daemon.json /etc/docker/daemon.json
 sudo chown root:root /etc/docker/daemon.json
 
 # Setup Docker Registry UI
-sudo docker run --name docker-registry-ui -d -p 5001:80 --restart=always -e URL="https://$HOST" -e REGISTRY_TITLE="$HOST" joxit/docker-registry-ui:static
+sudo docker run --name docker-registry-ui -d -p 5001:80 --restart=always -e URL="https://$DOMAIN" -e REGISTRY_TITLE="$DOMAIN" joxit/docker-registry-ui:static
 
 # Restart Docker
 sudo systemctl restart docker
@@ -48,7 +48,7 @@ sudo systemctl restart docker
 sudo docker run -d -u root --restart=always -e JENKINS_OPTS="--prefix=/jenkins" -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):$(which docker) --name jenkins jenkins/jenkins:jdk11
 
 # --== Rundeck ==-- #
-sudo docker run -d --restart=always --name rundeck -p 4440:4440 -e RUNDECK_GRAILS_URL="https://$HOST/rundeck" -e RUNDECK_SERVER_CONTEXTPATH="/rundeck" -e RUNDECK_SERVER_FORWARDED=true rundeck/rundeck:3.3.10
+sudo docker run -d --restart=always --name rundeck -p 4440:4440 -e RUNDECK_GRAILS_URL="https://$DOMAIN/rundeck" -e RUNDECK_SERVER_CONTEXTPATH="/rundeck" -e RUNDECK_SERVER_FORWARDED=true rundeck/rundeck:3.3.10
 
 # --== Nginx ==-- #
 sudo docker run -d --restart=always -p 80:80 -p 443:443 --name nginx nginx
@@ -57,12 +57,12 @@ sudo docker run -d --restart=always -p 80:80 -p 443:443 --name nginx nginx
 sudo docker exec nginx /bin/sh -c "apt-get update"
 sudo docker exec nginx /bin/sh -c "apt-get -y install certbot"
 sudo docker exec nginx /bin/sh -c "apt-get -y install python3-certbot-nginx"
-sudo docker exec nginx /bin/sh -c "certbot certonly --nginx --non-interactive --agree-tos -m $EMAIL -d $HOST"
+sudo docker exec nginx /bin/sh -c "certbot certonly --nginx --non-interactive --agree-tos -m $EMAIL -d $DOMAIN"
 
 # Nginx Congif
 cp ./Nginx/nginx.conf ./nginx.conf
 sed -i "s/<IP>/$PRIVATE_IP/" ./nginx.conf
-sed -i "s/<HOST>/$HOST/" ./nginx.conf
+sed -i "s/<DOMAIN>/$DOMAIN/" ./nginx.conf
 sudo docker cp ./nginx.conf nginx:/etc/nginx/nginx.conf
 rm ./nginx.conf
 
