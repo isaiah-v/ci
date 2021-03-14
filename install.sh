@@ -48,7 +48,7 @@ sudo systemctl restart docker
 sudo docker run -d -u root --restart=always -e JENKINS_OPTS="--prefix=/jenkins" -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):$(which docker) --name jenkins jenkins/jenkins:jdk11
 
 # --== Rundeck ==-- #
-sudo docker run -d --name rundeck -p 4440:4440 -e RUNDECK_GRAILS_URL="https://$HOST/rundeck" -e RUNDECK_SERVER_CONTEXTPATH="/rundeck" -e RUNDECK_SERVER_FORWARDED=true rundeck/rundeck:3.3.10
+sudo docker run -d --restart=always --name rundeck -p 4440:4440 -e RUNDECK_GRAILS_URL="https://$HOST/rundeck" -e RUNDECK_SERVER_CONTEXTPATH="/rundeck" -e RUNDECK_SERVER_FORWARDED=true rundeck/rundeck:3.3.10
 
 # --== Nginx ==-- #
 sudo docker run -d --restart=always -p 80:80 -p 443:443 --name nginx nginx
