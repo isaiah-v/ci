@@ -9,7 +9,7 @@ My Personal Continuous Interaction Setup. This project documents the setup proce
 ## Prerequisites
 
 ### 1. Domain Name
-You'll need a public domain name. This is required for a trusted ssl certificate.
+You'll need a public domain name that points to your [Public IP Address](https://www.whatismyip.com/). This is required to setup a trusted ssl certificate.
 
 ### 2. Ubuntu Server
 The install script in this project has only been tested with [Ubuntu Server v20.04 (LTS)](https://ubuntu.com/server). For best results, please use the same operating system.
