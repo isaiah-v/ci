@@ -17,12 +17,11 @@ The install script in this project has only been tested with [Ubuntu Server v20.
 ### 3. Network Setup
 Setup your network to forward request to your server. Most, if not all, modern routers support these settings.
 
-Private IP: `hostname -I | awk '{print $1}'`
-
 *Configuration:*
  * _DHCP Reservation_: Reserve an IP address for your server. This will prevent your private IP from changing.
  * _Port Forwarding_: Forward port 80 and 443 to your server. This will expose your server to the internet.
 
+_Private IP:_ `hostname -I | awk '{print $1}'`
 _Warning:_ For this server, do not publicly expose any port other than 80 and 443.
 
 ## Install Services
