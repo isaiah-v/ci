@@ -34,6 +34,11 @@ chmod +x ./install.sh
 ./install.sh
 ```
 
+After the installation is complete, reset your passwords.
+
+* Jenkins: Jenkins generates an initial admin password. Assuming you're in the project directory, run `./Jenkins/initialAdminPassword.sh`
+* Rundeck: admin/admin
+
 ## Public Locations
 
  * _Jenkins_: `https://$DOMAIN_NAME/jenkins`
