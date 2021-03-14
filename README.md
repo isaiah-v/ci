@@ -9,19 +9,21 @@ My Personal Continuous Interaction Setup. This project documents the setup proce
 ## Prerequisites
 
 ### 1. Domain Name
-A public domain name needs to be setup with a provider, and it needs to be setup point to your [Public IP Address](https://www.whatismyip.com/what-is-my-public-ip-address/). Your provider will have documentation on mapping your domain name.
+You'll need a public domain name. This is required for a trusted ssl certificate.
 
 ### 2. Ubuntu Server
-The install script in this project has only been tested with [Ubuntu Server v20.04 (LTS)](https://ubuntu.com/server).
+The install script in this project has only been tested with [Ubuntu Server v20.04 (LTS)](https://ubuntu.com/server). For best results, please use the same operating system.
 
 ### 3. Network Setup
-Setup your network so that when request come in they are forwaded to your server.
+Setup your network to forward request to your server. Most, if not all, modern routers support these settings.
+
+Private IP: `hostname -I | awk '{print $1}'`
 
 *Configuration:*
  * _DHCP Reservation_: Reserve an IP address for your server. This will prevent your private IP from changeing.
  * _Port Forwarding_: Forward port 80 and 443 to your server. This will expose your server to the internet.
 
-_Warning:_ Do not publicly expose any port other than 80 and 443.
+_Warning:_ For this server, do not publicly expose any port other than 80 and 443.
 
 ## Install Services
 
