@@ -34,7 +34,8 @@ chmod +x ./install.sh
 ./install.sh
 ```
 
-After the installation is complete, reset your passwords.
+## Post Install
+After successfully running the install script, you'll need to reset the passwords on the various services.
 
 * Jenkins: The initial admin password is generated. Execute [this](https://github.com/isaiah-v/ci/blob/main/Jenkins/initialAdminPassword.sh) script: `./Jenkins/initialAdminPassword.sh`
 * Rundeck: admin/admin
