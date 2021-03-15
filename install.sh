@@ -40,10 +40,14 @@ if ! [ -x "$(command -v jq)" ]; then
     sudo apt-get -y install jq || exit 1
 fi;
 if test -f "/etc/docker/daemon.json"; then
-    sudo cp /etc/docker/daemon.json /etc/docker/daemon.json~
-    sudo cat /etc/docker/daemon.json | jq "if (.\"insecure-registries\" != null) and (.\"insecure-registries\" | index([\"$PRIVATE_IP:5000\"])) then . else .\"insecure-registries\"+=[\"$PRIVATE_IP:5000\"] end" > /etc/docker/daemon.json
+    (cat /etc/docker/daemon.json | jq "if (.\"insecure-registries\" != null) and (.\"insecure-registries\" | index([\"$PRIVATE_IP:5000\"])) then . else .\"insecure-registries\"+=[\"$PRIVATE_IP:5000\"] end" > ./daemon.json) || exit 1
+
+    sudo cp /etc/docker/daemon.json /etc/docker/daemon.json~ || exit 1
+    sudo mv ./daemon.json /etc/docker/daemon.json || exit 1
+    sudo chown root:root /etc/docker/daemon.json || exit 1
 else
-    sudo (echo "{\"insecure-registries\": [\"$PRIVATE_IP:5000\"]}" | jq '.' > '/etc/docker/daemon.json') || exit 1
+    (echo "{\"insecure-registries\": [\"$PRIVATE_IP:5000\"]}" | jq '.' > ./daemon.json) || exit 1
+    sudo mv ./daemon.json /etc/docker/daemon.json || exit 1
     sudo chown root:root /etc/docker/daemon.json || exit 1
 fi
 sudo systemctl restart docker
