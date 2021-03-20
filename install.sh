@@ -58,7 +58,7 @@ sudo docker run --name ci-registry-ui -d -p 5001:80 --restart=always -e URL="htt
 
 # --== Jenkins ==-- #
 sudo docker rm -f ci-jenkins
-sudo docker run -d -u root --restart=always -e JENKINS_OPTS="--prefix=/jenkins" -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):$(which docker) --name ci-jenkins jenkins/jenkins:jdk11 || exit 1
+sudo docker run -d -u root --restart=always -e JENKINS_OPTS="--prefix=/jenkins" -p 8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):$(which docker) --name ci-jenkins jenkins/jenkins:jdk11 || exit 1
 
 # --== Rundeck ==-- #
 sudo docker rm -f ci-rundeck
