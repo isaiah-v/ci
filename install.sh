@@ -2,6 +2,8 @@
 
 read -p "Public Domain Name: " DOMAIN
 read -p "Email: " EMAIL
+read -p "Admin Username: " ADMIN_USER
+read -p "Admin Password: " ADMIN_PASSWORD
 
 PRIVATE_IP=$(hostname -I | awk '{print $1}')
 
@@ -14,6 +16,8 @@ fi
 
 echo DOMAIN = $DOMAIN
 echo EMAIL = $EMAIL
+echo ADMIN_USER = $ADMIN_USER
+echo ADMIN_PASSWORD = $ADMIN_PASSWORD
 echo PRIVATE_IP = $PRIVATE_IP
 echo DOCKER_ARCH = $DOCKER_ARCH
 
@@ -55,6 +59,17 @@ sudo systemctl restart docker
 # --== Docker Registry UI ==-- #
 sudo docker rm -f ci-registry-ui
 sudo docker run --name ci-registry-ui -d -p 5001:80 --restart=always -e URL="https://$DOMAIN" -e REGISTRY_TITLE="$DOMAIN" joxit/docker-registry-ui:static || exit 1
+
+# --== Keycloak ==-- #
+sudo docker rm -f ci-keycloak
+sudo docker run --name ci-keycloak --restart=always -d -p 8081:8080 -e KEYCLOAK_USER=$ADMIN_USER -e KEYCLOAK_PASSWORD=$ADMIN_PASSWORD quay.io/keycloak/keycloak:12.0.4 || exit 1
+
+# change web context from auth to keycloak/auth
+sudo docker exec -w "/opt/jboss/keycloak/standalone/configuration/" ci-keycloak sed -i -e 's/<web-context>auth<\/web-context>/<web-context>keycloak\/auth<\/web-context>/' standalone.xml
+sudo docker exec -w "/opt/jboss/keycloak/standalone/configuration/" ci-keycloak sed -i -e 's/<web-context>auth<\/web-context>/<web-context>keycloak\/auth<\/web-context>/' standalone-ha.xml
+
+# restart
+sudo docker restart ci-keycloak
 
 # --== Jenkins ==-- #
 sudo docker rm -f ci-jenkins

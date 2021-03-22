@@ -13,6 +13,9 @@ sudo docker rm -f ci-rundeck
 # --== Jenkins ==-- #
 sudo docker rm -f ci-jenkins
 
+# --== KeyCloak ==-- #
+sudo docker rm -f ci-keycloak
+
 # --== Docker Registry UI ==-- #
 sudo docker rm -f ci-registry-ui
 
